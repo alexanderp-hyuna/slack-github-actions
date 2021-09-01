@@ -175,6 +175,13 @@ const buildCliqPayload = (status: JobStatus, message: string) => {
       ? new Date().toString()
       : new Date(context.payload.repository?.pushed_at * 1000).toString();
 
+  core.debug(
+    'context.payload.repository?.pushed_at: ' +
+      context.payload.repository?.pushed_at
+  );
+
+  core.debug('timestamp:' + timestamp);
+
   // Convert hyperlinks from Slack format <link|text> to Cliq format [text](link)
   // Also ([text](link)) doesn't render properly, so inserts some spaces.
   let cliqMessage = message

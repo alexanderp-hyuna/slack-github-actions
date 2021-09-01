@@ -13560,10 +13560,12 @@ const buildSlackPayload = (status, message) => {
 };
 
 const buildCliqPayload = (status, message) => {
-  var _context$payload$repo5;
+  var _context$payload$repo5, _context$payload$repo6;
 
   const sender = github.context.payload.sender;
-  const timestamp = github.context.eventName === 'schedule' ? new Date().toString() : new Date(((_context$payload$repo5 = github.context.payload.repository) == null ? void 0 : _context$payload$repo5.pushed_at) * 1000).toString(); // Convert hyperlinks from Slack format <link|text> to Cliq format [text](link)
+  const timestamp = github.context.eventName === 'schedule' ? new Date().toString() : new Date(((_context$payload$repo5 = github.context.payload.repository) == null ? void 0 : _context$payload$repo5.pushed_at) * 1000).toString();
+  core$1.debug('context.payload.repository?.pushed_at: ' + ((_context$payload$repo6 = github.context.payload.repository) == null ? void 0 : _context$payload$repo6.pushed_at));
+  core$1.debug('timestamp:' + timestamp); // Convert hyperlinks from Slack format <link|text> to Cliq format [text](link)
   // Also ([text](link)) doesn't render properly, so inserts some spaces.
 
   let cliqMessage = message.replace(/\(<([^|]*)\|([^>]*)>\)/g, '( [$2]($1) )').replace(/<([^|]*)\|([^>]*)>/g, '[$2]($1)');
